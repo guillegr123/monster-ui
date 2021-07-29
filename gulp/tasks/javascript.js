@@ -3,7 +3,9 @@ import { join } from 'upath';
 import gulp from 'gulp';
 import uglify from 'gulp-uglify';
 import eslint from 'gulp-eslint';
+import babel from 'gulp-babel';
 import { app, src, tmp } from '../paths.js';
+import babelConf from '../.babelrc.json';
 
 const config = {
 	app: {
@@ -25,6 +27,11 @@ const context = config[mode];
 const handleUglifyError = error => {
 	console.error(JSON.stringify(error, null, 4));
 };
+
+export const compileEs6Js = () => gulp
+	.src(join(src, '**', '*.es6'))
+	.pipe(babel(babelConf))
+	.pipe(gulp.dest(tmp));
 
 /**
  * Minifies js/main.js, we don't use the optimizer from requirejs as we don't

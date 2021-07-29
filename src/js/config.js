@@ -24,5 +24,12 @@ define({
 			loa: 'http://ui.zswitch.net/Editable.LOA.Form.pdf',
 			resporg: 'http://ui.zswitch.net/Editable.Resporg.Form.pdf'
 		}
+	},
+	api: {
+		clusterManager: 'https://clustermanager.sandbox.2600hz.com/v1/',
+		'default': 'https://sandbox.2600hz.com:8443/v2/',
+		provisioner: 'https://provisioner.sandbox.2600hz.com/',
+		socket: 'wss://sandbox.2600hz.com:5443',
+		socketWebphone: 'wss://sandbox.2600hz.com:5065'
 	}
 });

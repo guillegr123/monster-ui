@@ -32,7 +32,7 @@ const moveDistFilesToDev = () => gulp
 	.pipe(gulp.dest(distDev));
 
 const moveSrcFilesToTmp = () => gulp
-	.src(join(src, '**', '*'))
+	.src([join(src, '**', '*'), '!' + join(src, '**', '*.es6')])	// Exclude ES6 files using a special suffix
 	.pipe(gulp.dest(tmp));
 
 

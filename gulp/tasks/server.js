@@ -1,10 +1,12 @@
 import gulp from 'gulp';
+import babel from 'gulp-babel';
 import { create } from 'browser-sync';
 import { join, normalize, relative, resolve } from 'upath';
 import del from 'del';
 import cache from 'gulp-cached';
 import sass from 'gulp-sass';
 import { src, dist } from '../paths.js';
+import babelConf from '../.babelrc.json';
 
 const server = create();
 
@@ -22,6 +24,12 @@ const htmlWatcher = () => gulp
 const jsWatcher = () => gulp
 	.src(join(src, '**', '*.js'))
 	.pipe(cache('js'))
+	.pipe(gulp.dest(dist))
+	.pipe(server.reload({ stream: true }));
+
+const es6JsWatcher = () => gulp
+	.src(join(src, '**', '*.es6'))
+	.pipe(babel(babelConf))
 	.pipe(gulp.dest(dist))
 	.pipe(server.reload({ stream: true }));
 
@@ -60,6 +68,7 @@ export const watch = done => {
 	let watchers = [
 		gulp.watch(join(src, '**', '*.css'), cssWatcher),
 		gulp.watch(join(src, '**', '*.html'), htmlWatcher),
+		gulp.watch(join(src, '**', '*.es6'), es6JsWatcher),
 		gulp.watch(join(src, '**', '*.js'), jsWatcher),
 		gulp.watch(join(src, '**', '*.json'), jsonWatcher),
 		gulp.watch(join(src, '**', '*.scss'), scssWatcher)

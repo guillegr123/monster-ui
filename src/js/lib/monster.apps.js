@@ -759,6 +759,7 @@ define(function() {
 					try {
 						app.load(_.partial(callback, null));
 					} catch (error) {
+						debugger;
 						callback(error);
 					}
 				};
